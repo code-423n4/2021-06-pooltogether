@@ -34,7 +34,9 @@ Under "Contest scope information" below, include the following:
 
 # Contest scope information
 
-[ ⭐️ SPONSORS ADD INFO HERE ]
+## Contracts
+
+
 
 ---
 
