@@ -1,42 +1,170 @@
-# ✨ So you want to sponsor a contest
+# Contest Scope
 
-This `README.md` contains a set of checklists for our contest collaboration.
+[PoolTogether](https://pooltogether.com) is a protocol that gamifies interest.  Users deposit funds into a "Prize Pool".  The Prize Pool uses a Yield Source to generate interest.  The interest is then exposed to a Prize Strategy, which distributes the interest as prizes. For a thorough introduction to the protocol, please refer to the [Protocol Overview](https://docs.pooltogether.com/protocol/overview) developer documentation.
 
-Your contest will use two repos: 
-- **a _contest_ repo** (this one), which is used for scoping your contest and for providing information to contestants (wardens)
-- **a _findings_ repo**, where issues are submitted. (We'll set that one up later.) 
+The scope of this contest includes the PoolTogether Protocol contracts that escrow funds.  We want wardens to focus exclusively on the security of user deposits.  The PoolTogether Protocol architecture is shown below and the aspect under audit is outlined in red.
 
-Ultimately, when we launch the contest, this contest repo will be made public and will contain the smart contracts to be reviewed and all the information needed for contest participants. The findings repo will be made public after the contest is over and your team has mitigated the identified issues.
+![Architecture Contest Scope](./images/C4_audit_scope.png)
 
-Some of the checklists in this doc are for **C4 (🐺)** and some of them are for **you as the contest sponsor (⭐️)**.
+# Contracts
 
----
+User deposits are held by the core Prize Pool, Yield Source implementations, and the corresponding tokens.
 
-# Contest scoping
+## PrizePool.sol
 
-## ⭐️ Sponsor: Provide contest scoping details
+The [PrizePool](./contracts/PrizePool.sol) contract is the primary point of entry for users: deposits and withdrawals occur here.  The contract is abstract, and has two subclasses that handle escrowed funds differently: StakePrizePool and YieldSourcePrizePool.
 
-Under "Contest scope information" below, include the following:
+- 1130 Lines of Code, including natspec.
+- Source file in containing project: [PrizePool.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/prize-pool/PrizePool.sol)
+- External calls:
+  - Controlled Tokens (tickets, sponsorship)
+  - Reserve Registry (to lookup reserve)
+  - Reserve Contract (to calculate reserve)
+  - Prize Strategy (token listener)
+- Libraries:
+  - SafeMath
+  - SafeCast
+  - SafeERC20
+  - ERC165Checker
+  - MappedSinglyLinkedList
+  - FixedPoint
 
-- [ ] Name of each contract and:
-  - [ ] lines of code in each
-  - [ ] external contracts called in each
-  - [ ] libraries used in each
-- [ ] Describe any novel or unique curve logic or mathematical models implemented in the contracts
-- [ ] Does the token conform to the ERC-20 standard? In what specific ways does it differ?
-- [ ] Describe anything else that adds any special logic that makes your approach unique
-- [ ] Identify any areas of specific concern in reviewing the code
-- [ ] Add all of the code to this repo that you want reviewed
-- [ ] Create a PR to this repo with the above changes.
-- [ ] Delete this checklist and wait for C4 to provide a recommended contest minimum.
+## YieldSourcePrizePool.sol
 
----
+This subclass of the PrizePool ferries deposits into an external Yield Source contract.
 
-# Contest scope information
+- 82 Lines of code, including natspec
+- Source file in containing project: [YieldSourcePrizePool.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/prize-pool/yield-source/YieldSourcePrizePool.sol)
+- External calls (in addition to Prize Pool externals):
+  - Yield Source
+- No additional libraries
 
-## Contracts
+## StakePrizePool.sol
 
+The [StakePrizePool](./contracts/StakePrizePool.sol) is a subclass of the PrizePool that simply holds the deposited tokens.  No yield is generated, so prizes must be added manually.
 
+- 72 Lines of code, including natspec
+- Source file in containing project: [StakePrizePool.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/prize-pool/stake/StakePrizePool.sol)
+- No external calls on top of Prize Pool
+- No additional libraries
+
+## ControlledToken.sol
+
+The [ControlledToken](./contracts/ControlledToken.sol) extends the standard ERC20 token (OpenZeppelin flavour) and adds a "token controller" is that able to burn and mint tokens.  The controller can also "listen" to token transfers and is called anytime a transfer occurs.  The token additionally extends the (at the time) experimental ERC20Permit contract provided by OpenZeppelin.
+
+When a Prize Pool is created an array of Controlled Tokens is passed to it.  These tokens serve as receipts for the deposited collateral.  The controller for all of the Controlled Tokens for a prize pool must be the prize pool itself.
+
+- 82 Lines of code, including natspec
+- Source file in containing project: [ControlledToken.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/token/ControlledToken.sol)
+- External calls:
+  - TokenController (the prize pool)
+- No additional libraries
+
+## Ticket.sol
+
+The [Ticket](./contracts/Ticket.sol) extends the above Controlled Token and adds a special data structure that organizes the token holders into contiguous blocks.  Visualizations can be found in [this article](https://medium.com/pooltogether/how-pooltogether-selects-winners-9301f8d76730).
+
+- 85 Lines of code, including natspec
+- Source file in containing project: [Ticket.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/token/Ticket.sol)
+- No additional external calls
+- Libraries:
+  - [SortitionSumTreeFactory](https://github.com/pooltogether/sortition-sum-tree-factory)
+
+## ATokenYieldSource.sol
+
+The [ATokenYieldSource](./contracts/yield-source/ATokenYieldSource.sol) is an adapter for Aave V2 Lending Pools that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
+
+- 263 Lines of code, including natspec
+- Source file in containing project: [ATokenYieldSource.sol](https://github.com/pooltogether/aave-yield-source/blob/bc65c875f62235b7af55ede92231a495ba091a47/contracts/yield-source/ATokenYieldSource.sol)
+- External calls:
+  - Aave V2 LendingPoolAddressesProviderRegistry
+  - Aave V2 LendingPoolAddressesProvider
+  - Aave V2 LendingPool
+  - Aave V2 aToken
+  - ERC20 token used to deposit
+- Libraries:
+  - SafeMath (OpenZeppelin)
+  - SafeERC20 (OpenZeppelin)
+
+## YearnV2YieldSource.sol
+
+The [YearnV2YieldSource](./contracts/yield-source/YearnV2YieldSource.sol) is an adapter for [Yearn V2 Vaults](https://docs.yearn.finance/products/yvaults/v2-yvaults) that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
+
+- 276 Lines of code
+- Source file in containing project: [YearnV2YieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/YearnV2YieldSource.sol)
+- External calls:
+  - Yearn V2 Vault
+  - ERC20 token used to deposit
+- Libraries:
+  - SafeERC20 (OpenZeppelin)
+  - SafeMath (OpenZeppelin)
+
+## SushiYieldSource.sol
+
+The [SushiYieldSource](./contracts/yield-source/SushiYieldSource.sol) is an adapter for [SushiBar](https://docs.sushi.com/products/the-sushibar) that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
+
+- 276 Lines of code
+- Source file in containing project: [SushiYieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/SushiYieldSource.sol)
+- External calls:
+  - Yearn V2 Vault
+  - ERC20 token used to deposit
+- Libraries:
+  - SafeERC20 (OpenZeppelin)
+  - SafeMath (OpenZeppelin)
+
+## Idle Yield Source
+
+The [IdleYieldSource](./contracts/yield-source/IdleYieldSource.sol) is an adapter for Idle's [Idle Token](https://developers.idle.finance/interface) that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
+
+- 160 Lines of code
+- Source file in containing project: [IdleYieldSource.sol](https://github.com/sunnyRK/IdleYieldSource-PoolTogether/blob/6dcc419e881a4f0f205c07c58f4db87520b6046d/contracts/IdleYieldSource.sol)
+- External calls:
+  - Idle Token
+  - Underlying asset ERC20 token
+- No libraries
+
+# Areas of Concern
+
+Here are some thing we're guessing may be problematic, so want to point out for efficiency's sake.
+
+## Floating Point Math
+
+These contracts make use of floating point math.  Underflow and overflow are always a concern, especially when packing token amounts into uint128.  Rounding has also been known to be challenging, as numbers can behave unexpectedly.
+
+## Boundary Conditions
+
+As a consequence of the yield source interface, there is a common pattern among yield sources to exchange the tokens to shares then burn the shares.
+
+Notice in this code from the [YearnV2YieldSource.sol#L140](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/YearnV2YieldSource.sol#L140):
+
+```solidity
+function redeemToken(uint256 amount) external override returns (uint256) {
+    uint256 shares = _tokenToShares(amount);
+
+    uint256 withdrawnAmount = _withdrawFromVault(amount);
+
+    _burn(msg.sender, shares);
+
+    token.safeTransfer(msg.sender, withdrawnAmount);
+
+    emit RedeemedToken(msg.sender, shares, amount);
+    return withdrawnAmount;
+}
+```
+
+The user is attempting to redeem say, 10 Dai, but the actual burned number of shares is calculated using the exchange rate.  Are there boundary conditions in this math that could be problematic?  Will it be impossible to withdraw *everything* and so dust will accrue?  Will this contract ever lock up indefinitely?
+
+## Rugging
+
+We've been careful to prevent the addition of malicious Controlled Tokens after a prize pool has been created, so that users can't be rugged by a manipulated token supply.  Are there any other ways that deposits can be compromised?
+
+## Griefing
+
+The token listener pattern used throughout the code could potentially lock tokens and grief users if exposed to the world.  We've locked them down as best we can, but are there any exploits that could grief users?
+
+## Anything else!
+
+There could easily be things I have missed.  This is why we need your keen eyes!
 
 ---
 
