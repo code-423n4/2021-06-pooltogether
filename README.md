@@ -1,3 +1,11 @@
+# PoolTogether V3 Contest
+
+- 50k USDC main award pot
+- 10K USDC gas optimization award pot
+- [Read our guidelines for more details](https://code423n4.com/compete)
+- Starts TBD XXX XXX XX 00:00 UTC
+- Ends TBD XXX XXX XX 23:59 UTC
+
 # Contest Scope
 
 [PoolTogether](https://pooltogether.com) is a protocol that gamifies interest.  Users deposit funds into a "Prize Pool".  The Prize Pool uses a Yield Source to generate interest.  The interest is then exposed to a Prize Strategy, which distributes the interest as prizes. For a thorough introduction to the protocol, please refer to the [Protocol Overview](https://docs.pooltogether.com/protocol/overview) developer documentation.
@@ -165,38 +173,3 @@ The token listener pattern used throughout the code could potentially lock token
 ## Anything else!
 
 There could easily be things I have missed.  This is why we need your keen eyes!
-
----
-
-# Contest prep
-
-## 🐺 C4: Contest prep
-- [ ] Rename contest H1 below
-- [ ] Add link to report form in contest details below
-- [ ] Update pot sizes
-- [ ] Fill in start and end times in contest bullets below.
-- [ ] Move any relevant information in "contest scope information" above to the bottom of this readme.
-- [ ] Add matching info to the [code423n4.com public contest data here](https://github.com/code-423n4/code423n4.com/tree/main/data/contests))
-- [ ] Delete this checklist.
-
-## ⭐️ Sponsor: Contest prep
-- [ ] Make sure your code is thoroughly commented using the [NatSpec format](https://docs.soliditylang.org/en/v0.5.10/natspec-format.html#natspec-format).
-- [ ] Modify the bottom of this `README.md` file to describe how your code is supposed to work with links to any relevent documentation and any other criteria/details that the C4 Wardens should keep in mind when reviewing
-- [ ] Please have final versions of contracts and documentation added/updated in this repo **no less than 8 hours prior to contest start time.**
-- [ ] Ensure that you have access to the _findings_ repo where issues will be submitted.
-- [ ] Delete this checklist and all text above the line below when you're ready.
-
----
-
-# Sponsorname contest details
-- TBD main award pot
-- TBD gas optimization award pot
-- Join [C4 Discord](https://discord.gg/EY5dvm3evD) to register
-- Submit findings [using the C4 form](https://c4-TBD.netlify.app/)
-- [Read our guidelines for more details](https://code423n4.com/compete)
-- Starts TBD XXX XXX XX 00:00 UTC
-- Ends TBD XXX XXX XX 23:59 UTC
-
-This repo will be made public before the start of the contest.
-
-[ ⭐️ SPONSORS ADD INFO HERE ]
