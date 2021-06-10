@@ -3,8 +3,8 @@
 - 50k USDC main award pot
 - 10K USDC gas optimization award pot
 - [Read our guidelines for more details](https://code423n4.com/compete)
-- Starts TBD XXX XXX XX 00:00 UTC
-- Ends TBD XXX XXX XX 23:59 UTC
+- Starts June 16, 2021
+- Ends June 23, 2021
 
 # Contest Scope
 
@@ -17,6 +17,10 @@ The scope of this contest includes the PoolTogether Protocol contracts that escr
 # Contracts
 
 User deposits are held by the core Prize Pool, Yield Source implementations, and the corresponding tokens.
+
+## Video Overview
+
+[![Architecture Contest Scope](./images/VIDEO_COVER.png)](https://www.youtube.com/watch?v=YW4z5IvO1-E)
 
 ## PrizePool.sol
 
@@ -78,7 +82,7 @@ The [Ticket](./contracts/Ticket.sol) extends the above Controlled Token and adds
 - Libraries:
   - [SortitionSumTreeFactory](https://github.com/pooltogether/sortition-sum-tree-factory)
 
-## ATokenYieldSource.sol
+## Aave Yield Source
 
 The [ATokenYieldSource](./contracts/yield-source/ATokenYieldSource.sol) is an adapter for Aave V2 Lending Pools that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
 
@@ -94,7 +98,7 @@ The [ATokenYieldSource](./contracts/yield-source/ATokenYieldSource.sol) is an ad
   - SafeMath (OpenZeppelin)
   - SafeERC20 (OpenZeppelin)
 
-## YearnV2YieldSource.sol
+## Yearn V2 Yield Source
 
 The [YearnV2YieldSource](./contracts/yield-source/YearnV2YieldSource.sol) is an adapter for [Yearn V2 Vaults](https://docs.yearn.finance/products/yvaults/v2-yvaults) that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
 
@@ -107,7 +111,7 @@ The [YearnV2YieldSource](./contracts/yield-source/YearnV2YieldSource.sol) is an 
   - SafeERC20 (OpenZeppelin)
   - SafeMath (OpenZeppelin)
 
-## SushiYieldSource.sol
+## Sushi Yield Source
 
 The [SushiYieldSource](./contracts/yield-source/SushiYieldSource.sol) is an adapter for [SushiBar](https://docs.sushi.com/products/the-sushibar) that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
 
@@ -130,6 +134,17 @@ The [IdleYieldSource](./contracts/yield-source/IdleYieldSource.sol) is an adapte
   - Idle Token
   - Underlying asset ERC20 token
 - No libraries
+
+## Badger Yield Source
+
+The [Badger Yield Source](./contracts/yield-source/BadgerYieldSource.sol) is an adapter for [Badger Sett Vaults](https://app.badger.finance/).
+
+- 82 Lines of code
+- Source file in containing project: [BadgerYieldSource.sol](https://github.com/0xkarl/badger-sett-pooltogether/blob/master/contracts/BadgerYieldSource.sol).
+- External calls:
+  - Badger Sett Vault
+  - Badger token
+- SafeMath library
 
 # Areas of Concern
 
