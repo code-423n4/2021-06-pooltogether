@@ -14,13 +14,13 @@ The scope of this contest includes the PoolTogether Protocol contracts that escr
 
 ![Architecture Contest Scope](./images/C4_audit_scope.png)
 
+## Video Walkthough
+
+[![Architecture Walkthough](./images/VIDEO_COVER.png)](https://www.youtube.com/watch?v=YW4z5IvO1-E)
+
 # Contracts
 
 User deposits are held by the core Prize Pool, Yield Source implementations, and the corresponding tokens.
-
-## Video Overview
-
-[![Architecture Contest Scope](./images/VIDEO_COVER.png)](https://www.youtube.com/watch?v=YW4z5IvO1-E)
 
 ## PrizePool.sol
 
