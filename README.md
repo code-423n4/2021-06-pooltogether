@@ -16,7 +16,9 @@ The scope of this contest includes the PoolTogether Protocol contracts that escr
 
 ## Video Walkthough
 
-[![Architecture Walkthough](./images/VIDEO_COVER.png)](https://www.youtube.com/watch?v=YW4z5IvO1-E)
+<a href="https://www.youtube.com/watch?v=YW4z5IvO1-E" title="PoolTogether V3 Architecture Walkthough" target="_blank">
+  <img src='./images/VIDEO_COVER.png' />
+</a>
 
 # Contracts
 
