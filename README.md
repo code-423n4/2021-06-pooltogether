@@ -19,7 +19,7 @@ The code under audit is listed below in the scope, but here are links to the con
 | [Ticket.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/token/Ticket.sol) | https://github.com/pooltogether/pooltogether-pool-contracts | [@pooltogether/pooltogether-contracts](https://www.npmjs.com/package/@pooltogether/pooltogether-contracts) |
 | [ATokenYieldSource.sol](https://github.com/pooltogether/aave-yield-source/blob/bc65c875f62235b7af55ede92231a495ba091a47/contracts/yield-source/ATokenYieldSource.sol) | https://github.com/pooltogether/aave-yield-source | [@pooltogether/aave-yield-source](https://www.npmjs.com/package/@pooltogether/aave-yield-source) |
 | [YearnV2YieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/YearnV2YieldSource.sol) | https://github.com/pooltogether/pooltogether-yearnv2-yield-source | N/A |
-| [SushiYieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/SushiYieldSource.sol) | https://github.com/pooltogether/pooltogether-yearnv2-yield-source | N/A |
+| [SushiYieldSource.sol](https://github.com/pooltogether/sushi-pooltogether/blob/master/contracts/SushiYieldSource.sol) | https://github.com/pooltogether/sushi-pooltogether | N/A |
 | [IdleYieldSource.sol](https://github.com/sunnyRK/IdleYieldSource-PoolTogether/blob/6dcc419e881a4f0f205c07c58f4db87520b6046d/contracts/IdleYieldSource.sol) | https://github.com/sunnyRK/IdleYieldSource-PoolTogether | N/A |
 | [BadgerYieldSource.sol](https://github.com/0xkarl/badger-sett-pooltogether/blob/master/contracts/BadgerYieldSource.sol) | https://github.com/0xkarl/badger-sett-pooltogether | N/A |
 
@@ -136,7 +136,7 @@ The [YearnV2YieldSource](./contracts/yield-source/YearnV2YieldSource.sol) is an 
 The [SushiYieldSource](./contracts/yield-source/SushiYieldSource.sol) is an adapter for [SushiBar](https://docs.sushi.com/products/the-sushibar) that implements the [IYieldSource.sol](https://github.com/pooltogether/yield-source-interface) interface.
 
 - 276 Lines of code
-- Source file in containing project: [SushiYieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/SushiYieldSource.sol)
+- Source file in containing project: [SushiYieldSource.sol](https://github.com/pooltogether/sushi-pooltogether/blob/master/contracts/SushiYieldSource.sol)
 - External calls:
   - Yearn V2 Vault
   - ERC20 token used to deposit
