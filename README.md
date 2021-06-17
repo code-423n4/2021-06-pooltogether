@@ -6,6 +6,24 @@
 - Starts June 16, 2021
 - Ends June 23, 2021
 
+# Links to Relevant Projects
+
+The code under audit is listed below in the scope, but here are links to the containing projects for ease of auditing:
+
+| File | Repository | NPM package |
+| ----- | ------- | ---------- |
+| [PrizePool.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/prize-pool/PrizePool.sol) | https://github.com/pooltogether/pooltogether-pool-contracts | [@pooltogether/pooltogether-contracts](https://www.npmjs.com/package/@pooltogether/pooltogether-contracts) |
+| [YieldSourcePrizePool.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/prize-pool/yield-source/YieldSourcePrizePool.sol) | https://github.com/pooltogether/pooltogether-pool-contracts | [@pooltogether/pooltogether-contracts](https://www.npmjs.com/package/@pooltogether/pooltogether-contracts) |
+| [StakePrizePool.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/prize-pool/stake/StakePrizePool.sol) | https://github.com/pooltogether/pooltogether-pool-contracts | [@pooltogether/pooltogether-contracts](https://www.npmjs.com/package/@pooltogether/pooltogether-contracts) |
+| [ControlledToken.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/token/ControlledToken.sol) | https://github.com/pooltogether/pooltogether-pool-contracts | [@pooltogether/pooltogether-contracts](https://www.npmjs.com/package/@pooltogether/pooltogether-contracts) |
+| [Ticket.sol](https://github.com/pooltogether/pooltogether-pool-contracts/blob/cbec82befa502500c63b59a9d0dabd678d3dd508/contracts/token/Ticket.sol) | https://github.com/pooltogether/pooltogether-pool-contracts | [@pooltogether/pooltogether-contracts](https://www.npmjs.com/package/@pooltogether/pooltogether-contracts) |
+| [ATokenYieldSource.sol](https://github.com/pooltogether/aave-yield-source/blob/bc65c875f62235b7af55ede92231a495ba091a47/contracts/yield-source/ATokenYieldSource.sol) | https://github.com/pooltogether/aave-yield-source | [@pooltogether/aave-yield-source](https://www.npmjs.com/package/@pooltogether/aave-yield-source) |
+| [YearnV2YieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/YearnV2YieldSource.sol) | https://github.com/pooltogether/pooltogether-yearnv2-yield-source | N/A |
+| [SushiYieldSource.sol](https://github.com/pooltogether/pooltogether-yearnv2-yield-source/blob/a34857f1555908a6263d2ebd189f0cb40e1858da/contracts/yield-source/SushiYieldSource.sol) | https://github.com/pooltogether/pooltogether-yearnv2-yield-source | N/A |
+| [IdleYieldSource.sol](https://github.com/sunnyRK/IdleYieldSource-PoolTogether/blob/6dcc419e881a4f0f205c07c58f4db87520b6046d/contracts/IdleYieldSource.sol) | https://github.com/sunnyRK/IdleYieldSource-PoolTogether | N/A |
+| [BadgerYieldSource.sol](https://github.com/0xkarl/badger-sett-pooltogether/blob/master/contracts/BadgerYieldSource.sol) | https://github.com/0xkarl/badger-sett-pooltogether | N/A |
+
+
 # Contest Scope
 
 [PoolTogether](https://pooltogether.com) is a protocol that gamifies interest.  Users deposit funds into a "Prize Pool".  The Prize Pool uses a Yield Source to generate interest.  The interest is then exposed to a Prize Strategy, which distributes the interest as prizes. For a thorough introduction to the protocol, please refer to the [Protocol Overview](https://docs.pooltogether.com/protocol/overview) developer documentation.
