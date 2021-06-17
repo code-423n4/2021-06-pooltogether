@@ -6,7 +6,7 @@
 - Starts June 16, 2021
 - Ends June 23, 2021
 
-# Links to Relevant Projects
+# List of Contracts Under Audit
 
 The code under audit is listed below in the scope, but here are links to the containing projects for ease of auditing:
 
